@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>Zoptimizer让脚本运行时更高效</title>
+  <meta name="Keywords" content="Javascript，web开发，前端，性能，用户体验"/>
+  <meta name="Description" content=""/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+ </head>
+
+ <body>
+  <div class="wrap" id="top"><h1 class="header"><img class="logo" src="images/logo.png" width="211" height="61" alt="Zoptimizer让脚本运行时更高效" /></h1><span class="top-contact">欢迎加入QQ讨论群：<b class="emcolor">254271869</b></span></div>
+  <div class="nav-wrap">
+	<div class="wrap"><a href="#features">功能介绍</a><a href="#howtouse">使用方法</a><a href="#releasedlog">版本迭代</a><a href="#feedback">反馈建议</a></div>
+  </div>
+  <div class="wrap" id="banner"><a href="zoptimizer-latest.js" download="zoptimizer.js" class="download-btn"><img src="images/download.png" width="127" height="49" /></a><img src="images/banner.png" width="980" height="360"/></div>
+  <div class="wrap">
+	<h2><a name="features">功能介绍</a></h2>
+	<p>Zoptimizer是一款基于javascript用于实时监测页面脚本中函数运行情况的免费软件。</p>
+    <p>Zoptimizer采用浮层式窗口，完全支持用户自定义监控对象，且自动向下遍历所有子对象和函数。软件运行过程中不中断页面上用户的任何操作，实时更新监测结果。丰富的结果筛选方式可以让使用者从“调用次数”，“平均执行耗时”，“最长执行耗时”等维度全方位的掌握页面上函数执行的情况。弥补了其它基于静态文件分析的性能检测软件的缺失，提供给用户从“加载”到“运行时”更全面的脚本性能监测及用户体验评估手段。</p>
+    <div>
+		<p>Zoptimizer有以下特点：</p>
+		<ul>
+			<li>体积小，跨平台。压缩文件10k左右，可以运行在MSIE、Gecko、Webkit等主流web浏览器中。</li>
+			<li>使用方式简单。只需通过任意方式在需要监测的页面嵌入一个指定的script标签即可。</li>
+			<li>提供对外开放接口。可以方便的融入第三方测试框架中，完成自动化测试。</li>
+			<li>自动更新。保证软件的快速迭代和升级。</li>
+		</ul>
+	</div>
+	<h2><a name="howtouse">使用方法</a></h2>
+	<div>
+		<div class="method">
+			<p class="stepwrap"><b>STEP 1</b>：嵌入脚本，<span style="color:#f50">以下方法任选其一</span>。</p>
+			<ul>
+				<li>将<a class="bookmark-link" href="javascript:void function(d,c,e){(e=d[c]('script')).src='http://t.cn/zQAAIjl?'+(+new Date);e.charset='utf-8';d.documentElement.appendChild(e)}(document,'createElement')">Zoptimizer</a>加入浏览器书签栏，Firefox浏览器可能会有兼容性问题，推荐使用chrome浏览器。</li>
+				<li>将<input class="code4copy" type="text" value="<script type='text/javascript' src='http://t.cn/zQAAIjl'></script>" onclick="this.select()"/>嵌入需要监测的页面源码中（推荐）。</li>
+				<li>在控制台中将脚本文件“http://zoptimizer.duapp.com/zoptimizer-latest.js”动态加入页面中（适合有js基础的用户）。</li>
+			</ul>
+			<p class="stepwrap"><b>STEP 2</b>：输入待监测的对象名。</p>
+			<p>在浮层窗口中“监测对象”字段内填写页面中可以访问到的对象后，会自动遍历该对象命名空间下的所有自定义对象和函数。</p>
+			<p class="stepwrap"><b>STEP 3</b>：查看结果。</p>
+			<p>可以选择不同的筛选方式查看页面运行结果，监控结果实时更新不会中断页面的交互操作。</p>
+		</div>
+	</div>
+	<h2><a name="releasedlog">版本迭代</a></h2>
+	<table class="release-version">
+		<tr><th width="12%">版本号</th><th width="12%">发布时间</th><th>版本描述</th></tr>
+		<tr>
+			<td align="center">V 1.1</td>
+			<td align="center">2013.7.17</td>
+			<td align="left">1、修改函数名称的获取方式；<br/>2、修复IE8以下浏览器动态添加样式报错；<br/>3、修复chrome下监控window对象导致堆栈溢出；<br/>4、修改函数包装器的实现方式；<br/>5、添加结果集筛选机制；<br/>6、新增展示结果类型；</td>
+		</tr>
+		<tr>
+			<td align="center">V 1.0</td>
+			<td align="center">2013.5.17</td>
+			<td align="left">对外发布正式版本。</td>
+		</tr>
+	</table>
+	<h2><a name="feedback">反馈建议</a></h2>
+	<p>如有任何建议和问题请反馈信息至 zoptimizer@163.com 或加入QQ讨论群 <b class="emcolor">254271869</b> ，您的关注将是Zoptimizer持续完善的动力！</p>
+	<p	class="footer"><script type="text/javascript">var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1088015b27e97c8105c51cdbd8bb5148' type='text/javascript'%3E%3C/script%3E"));</script></p>
+  </div>
+ </body>
+</html>
