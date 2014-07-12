@@ -1,0 +1,28 @@
+html, body, div, p, a, span, img, ul, ol, li, b, br, h1, h2, h3{margin:0;padding:0}
+body{font: 14px/1.8 'Microsoft YaHei',tahoma,arial,sans-serif;background-color:#fff;color:#333;}
+img{border:0;}
+a{color:#333;text-decoration:none;}
+.wrap{width:980px;margin:0 auto;overflow:hidden;/*outline:1px solid red;*/}
+.logo{margin:10px 6px;}
+.header{height:80px;line-height:80px;}
+#top{position:relative;}
+.top-contact{position:absolute;right:6px;bottom:0;}
+.nav-wrap{height:40px;line-height:40px;background-color:#099;}
+.nav-wrap a,
+.nav-wrap a:visited{color:#fff;text-decoration:none;}
+.nav-wrap a:hover{color:#fff;text-decoration:underline;}
+.nav-wrap a{font-size:16px;margin:0 30px;}
+#banner{position:relative;height:360px;overflow:hidden;}
+.download-btn{position:absolute;top:150px;left:340px;}
+h2{font-size:20px;font-weight:700;border-left:3px solid #099;text-indent:1em;margin:60px 0 10px 0;}
+p{text-indent:2em;line-height:2;}
+ul{padding-left:20px;margin-left:20px;}
+.code4copy{width:470px;height:16px;margin:0 6px;padding:4px;border:1px solid #ccc;}
+.bookmark-link{display:inline-block;padding:0 6px;height:24px;line-height:24px;background-color:#099;color:#fff;margin:0 6px;vertical-align:middle;}
+.method li{margin:12px 0;}
+.stepwrap{margin-top:12px;}
+.footer{padding-bottom:40px;visibility:hidden;}
+.release-version{width:800px;margin-left:2em;border-collapse:collapse;border:1px solid #ccc;table-layout:fixed;}
+.release-version th, .release-version td{border:1px solid #ccc;padding:10px;}
+.release-version th{background-color:#eee;}
+.emcolor{color:#e4442e}
