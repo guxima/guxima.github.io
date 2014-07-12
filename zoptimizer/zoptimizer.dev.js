@@ -497,7 +497,6 @@ var zop = function(){
         }
     });
 }();
-window.zop = zop;
 /**
 * 核心数据处理
 * 通过注册zop的事件采集函数数据
@@ -557,13 +556,13 @@ zop.addListener('function-found', function (_, fnpath){
     dataset.setInfoByPath(fnpath);
 });
 
-zop.addListener('before-function-exec', function (_, fnpath, args, fn){
-   var item = dataset.getInfoByPath(fnpath);
-
-   item.runtime.push(+new Date);
-   item.arglist.push(utils.list2Array(args).join(','));
-   item.caller.push(args.callee.caller);
-});
+//zop.addListener('before-function-exec', function (_, fnpath, args, fn){
+//    var item = dataset.getInfoByPath(fnpath);
+//
+//    item.runtime.push(+new Date);
+//    item.arglist.push(utils.list2Array(args).join(','));
+//    item.caller.push(args.callee.caller);
+//});
 
 zop.addListener('after-function-exec', function (_, fnpath, args, fn, duration){
     var item = dataset.getInfoByPath(fnpath);
