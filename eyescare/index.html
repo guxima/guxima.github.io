@@ -10,7 +10,9 @@
   <style type="text/css">
     *{margin:0;padding:0;box-sizing:border-box;}
     html, body, #canvas{width:100%;height:100%;overflow:hidden;}
-    #canvas{}
+    h1{font-size:2rem!important;}
+    h2{font-size:1.6rem!important;}
+    h3{font-size:1.2rem;}
     .unit{float:left;text-align:center;overflow:hidden;}
     .unit span{display:block;width:100%;height:100%;line-height:1;font-family:verdana,sans-serif;}
     .rotate1{-webkit-transform:rotateZ(-90deg);transform:rotateZ(-90deg)}
@@ -25,11 +27,21 @@
     .readme-cont h1{font-size:1.5rem;text-align:center;margin-bottom:15px;}
     .readme-cont li{margin-left:30px;}
     b.blue{font-family:tahoma,sans-serif;color:#80CEF7;font-size:1.2rem;}
-    .goarea{position:absolute;bottom:50px;width:80%;height:50px;left:10%;padding:4px 10px;border:2px solid #80CEF7;background:#fafafa;border-radius:10px;text-align:left;}
+    .goarea{position:absolute;bottom:60px;width:80%;height:50px;left:10%;padding:4px 10px;border:2px solid #80CEF7;background:#fafafa;border-radius:10px;text-align:left;}
     .goarea img{position:absolute;-webkit-animation:goimg 3s ease 0 infinite;}
     .readme-hide{display:none;}
-    .scene-fadein{-webkit-animation:scene-fadein 1s ease;}
+    .scene-fadein{-webkit-animation:scene-fadein 1s ease;-webkit-animation-fill-mode:forwards;}
     .loading{position:fixed;width:100%;height:100%;background:#fff;opacity:.6;z-index:9;display:none;}
+    .blink-target{-webkit-animation:blink-target 2s linear;}
+    .break-target{-webkit-animation:scene-fadein .5s ease;-webkit-animation-fill-mode:forwards;}
+    .barrier-tip{position:fixed;top:50%;left:50%;margin-left:-100px;width:200px;text-align:center;background:#333;font-size:2.2rem;font-weight:600;color:#fff;border-radius:4px;line-height:2;-webkit-animation-duration:2s!important;z-index:8}
+    .result{position:fixed;width:100%;height:100%;text-align:center;z-index:11;color:#333;display:none;}
+    .result .bg{position:absolute;left:0;top:0;width:100%;height:100%;background:#ccc;opacity:.8;z-index:-1;}
+    .result .msg{width:80%;margin:15% auto 0;padding:15px;line-height:2;border:1px solid #ccc;border-radius:5px;background:#FFF0D5;z-index:2;}
+    .msg-cont{color:#f50;margin-bottom:30px;}
+    .msg-sug{margin:0 25px 20px;text-align:left;}
+    .msg h3{text-align:left;}
+    .msg a{text-decoration:none;color:#aaa;}
 
     @-webkit-keyframes goimg{
         0%{left:0}
@@ -37,7 +49,14 @@
     }
     @-webkit-keyframes scene-fadein{
         from{opacity:1;}
-        to{opacity:.1;}
+        to{opacity:0;visibility:hidden;}
+    }
+    @-webkit-keyframes blink-target{
+        0%{color:#000}
+        10%{color:#fff}
+        20%{color:#000}
+        30%{color:#fff}
+        40%{color:#000}
     }
   </style>
   <!--mz微信内置浏览器不支持-->
@@ -63,6 +82,22 @@
     <p class="copyright"><a target="_blank" href="http://touch.qunar.com">touch.qunar.com</a>&copy;2014<br><a target="_blank" href="mailto:83790235@qq.com">Q&A</a></p>
   </div>
   <div class="loading"></div>
+  <div class="barrier-tip"></div>
+  <div class="result">
+    <div class="msg">
+        <h2>检查报告单</h2>
+        <p class="msg-cont"></p>
+        <h3>保护视力方法</h3>
+        <ol class="msg-sug">
+            <li>合适的光线亮度</li>
+            <li>好的近距用眼姿势</li>
+            <li>缩短近距用眼时间</li>
+            <li>增加户外活动</li>
+        </ol>
+        <p>去哪儿？-聪明你的旅行 <a target="_blank" href="http://touch.qunar.com">GO>></a></p>
+    </div>
+    <span class="bg"></span>
+  </div>
   <div id="canvas"></div>
   <script type="text/javascript">
   <!--
@@ -74,7 +109,8 @@
 
         var needCheckTargets = [];
         var currentTarget = null;
-        var WHscale = 1;
+        var WHscale;
+        var barrier = 1;
 
         //根据当前级别创建场景
         function createScene(step){
@@ -130,7 +166,7 @@
 
             if(checkedEle.find('span').eq(0).hasClass( typeRotateMap[type] ) ){
                 checkedEle.removeClass('current-target');
-                //todo:add break effect
+                checkedEle.addClass('break-target');
 
                 if(needCheckTargets.length){
                     highlightTarget( currentTarget=needCheckTargets.pop() );
@@ -138,22 +174,25 @@
                     nextStep();
                 }
             }else{
-                //show wrong tip
-                alert(0)
+                if(! checkedEle.hasClass('blink-target')){
+                    checkedEle.addClass('blink-target');
+                }else{
+                    gameover(parseInt(checkedEle.css('font-size')) );
+                }
             }
         }
 
         //根据当前级别获取待检测的目标集合(每个目标的坐标)
         function getCheckTargets(step){
             var ret = [],
-                sampleCount = 4,
+                sampleCount = 1,
                 rCount = initTable.rowCount,
                 cCount = initTable.columnCount,
                 total = rCount * cCount;
 
             //当目标总数大于4的时候，抽样数增加总数的10%
             if(total > 4){
-                sampleCount += Math.ceil(total * 0.1);
+                sampleCount += Math.ceil(total * 0.001);
             }
 
             var pools = getRangeArray(total),
@@ -163,7 +202,7 @@
                 idx = parseInt(Math.random() * pools.length);
                 ret.push({
                     r: parseInt(pools[idx] / cCount),
-                    c: parseInt(pools[idx] % rCount)
+                    c: parseInt(pools[idx] % cCount)
                 });
                 pools.splice(idx, 1);
             }
@@ -207,10 +246,12 @@
         //运行游戏
         function run(){
             $('#' + containerId).html(createScene(initStep) );
+            $('.barrier-tip').html('Level-' + (barrier++)).addClass('scene-fadein').show();
             $('.loading').addClass('scene-fadein').show();
             setTimeout(function(){
                 $('.loading').removeClass('scene-fadein').hide();
-            }, 1000);
+                $('.barrier-tip').removeClass('scene-fadein').hide();
+            }, 2000);
 
             needCheckTargets = getCheckTargets(initStep);
 
@@ -219,10 +260,26 @@
 
         //开启下一关模式
         function nextStep(){
-            //todo:check win
-            //document.documentElement.offsetHeight / (step.yLevel + 1)
-            updateStep();
-            run();
+            if(14 >= parseInt(document.documentElement.offsetHeight / (initStep.yLevel + 1) )){
+                gameover(14);
+            }else{
+                updateStep();
+                run();
+            }
+        }
+
+        //游戏结束，取字号20～30为适中值
+        function gameover(fontSize){
+            var msg = [
+                    '(^_^) 好眼力～，<br>一定要继续保持！',
+                    '(*_*) 望远是让眼睛最好的休息方式，<br>请注意用眼习惯！',
+                    '(-_-) 长时间视力疲劳会损害视神经，<br>请勿过度用眼！'
+                ],
+                idx = Math.floor(fontSize/10)-1;
+
+            msg = msg[idx] || msg[2];
+            
+            $('.result').show().find('.msg-cont').html(msg);
         }
 
         
@@ -252,7 +309,7 @@
 
 
         //滑动开始
-//        $('.goarea').on('swipeRight', function(){alert(11)
+//        $('.goarea').on('swipeRight', function(){
 //            $('.readme').addClass('readme-hide');
 //            start();
 //        });
