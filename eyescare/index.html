@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>eyes care - 爱眼游戏</title>
+  <meta charset="UTF-8" />
+  <meta name="author" content="todd.ma@qunar.com" />
+  <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <style type="text/css">
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html, body, #canvas{width:100%;height:100%;overflow:hidden;}
+    #canvas{}
+    .unit{float:left;text-align:center;overflow:hidden;}
+    .unit span{display:block;width:100%;height:100%;line-height:1;font-family:verdana,sans-serif;}
+    .rotate1{-webkit-transform:rotateZ(-90deg);transform:rotateZ(-90deg)}
+    .rotate2{-webkit-transform:rotateZ(-180deg);transform:rotateZ(-180deg)}
+    .rotate3{-webkit-transform:rotateZ(-270deg);transform:rotateZ(-270deg)}
+    .current-target{background:#B9E0F4;border-radius:4px;}
+    .readme{position:absolute;width:100%;height:100%;text-align:center;overflow:hidden;z-index:10;transform:translateZ(0)}
+    .ebg{position:absolute;top:50%;left:50%;margin-top:-200px;margin-left:-100px;width:200px;opacity:.05;}
+    .copyright{position:absolute;bottom:10px;width:100%;font-family:tahoma;color:#aaa;text-align:center;}
+    .copyright a{text-decoration:none;color:#aaa;}
+    .readme-cont{width:90%;height:350px;margin:20px auto 0;padding:12px;text-align:left;line-height:1.8;color:#333;border:1px solid #ccc;border-radius:4px;font-size:1rem;}
+    .readme-cont h1{font-size:1.5rem;text-align:center;margin-bottom:15px;}
+    .readme-cont li{margin-left:30px;}
+    b.blue{font-family:tahoma,sans-serif;color:#80CEF7;font-size:1.2rem;}
+    .goarea{position:absolute;bottom:50px;width:80%;height:50px;left:10%;padding:4px 10px;border:2px solid #80CEF7;background:#fafafa;border-radius:10px;text-align:left;}
+    .goarea img{position:absolute;-webkit-animation:goimg 3s ease 0 infinite;}
+    .readme-hide{display:none;}
+    .scene-fadein{-webkit-animation:scene-fadein 1s ease;}
+    .loading{position:fixed;width:100%;height:100%;background:#fff;opacity:.6;z-index:9;display:none;}
+
+    @-webkit-keyframes goimg{
+        0%{left:0}
+        100%{left:90%}
+    }
+    @-webkit-keyframes scene-fadein{
+        from{opacity:1;}
+        to{opacity:.1;}
+    }
+  </style>
+  <!--mz微信内置浏览器不支持-->
+  <!--script type="text/javascript" src="zepto.js"></script-->
+  
+  <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="jquery.touchSwipe.min.js"></script>
+ </head>
+
+ <body>
+  <div class="readme">
+    <img class="ebg" src="ebg.png" alt="第一张图片"/>
+    <div class="readme-cont">
+        <h1>游戏须知</h1>
+        <ol>
+            <li>手指滑动方向和高亮的“<b class="blue">E</b>”朝向一致即为正确。</li>
+            <li>请保持眼睛和屏幕一臂距离，建议双手持机（若姿势不当引起感官机械性损伤，概不负责）</li>
+            <li>请勿长时间使用，建议每隔一两小时使用5～10分钟。</li>
+            <li>测试结果未经任何机构鉴定，切勿当真（认真你就输了）</li>
+        </ol>
+    </div>
+    <p class="goarea"><img src="rhand.png" height="40"/></p>
+    <p class="copyright">&copy;2014 <a target="_blank" href="mailto:83790235@qq.com">83790235@qq.com</a></p>
+  </div>
+  <div class="loading"></div>
+  <div id="canvas"></div>
+  <script type="text/javascript">
+  <!--
+        var containerId = 'canvas';
+
+        var initStep;//{xLevel:横向切割数, yLevel:纵向切割数}
+
+        var initTable;//{rowCount:行数 columnCount:列数}
+
+        var needCheckTargets = [];
+        var currentTarget = null;
+        var WHscale = 1;
+
+        //根据当前级别创建场景
+        function createScene(step){
+            var docElement = document.documentElement,
+                area = {
+                    w: docElement.offsetWidth,
+                    h: docElement.offsetHeight
+                },
+                hCount = (step.xLevel + 1),
+                vCount = (step.yLevel + 1),
+                block = {
+                    w: parseInt(area.w / hCount),
+                    h: parseInt(area.h / vCount)
+                };
+
+            WHscale = area.w / area.h;
+
+            var count = hCount * vCount,
+                html = '',
+                styleText = 'width:' + block.w + 'px;'
+                           +'height:' + block.h + 'px;'
+                           +'font-size:' + block.h + 'px;';
+
+            while(count--){
+                var rotateCls = 'rotate' + parseInt(Math.random() * 4);
+                html += '<div class="unit" style="'+ styleText +'"><span class="' + rotateCls + '">E</span></div>';
+            }
+
+            return html;
+        }
+
+        //为场景绑定swipe事件
+        function bindSwipeEvent(id){
+//            $('#'+ id).on('swipeLeft swipeRight swipeUp swipeDown', checkAction);
+            $('#'+ id).swipe({
+                swipe: function(e, direction){
+                    checkAction(e, 'swipe'+direction);
+                }
+            });
+        }
+
+        //检查用户行为是否和目标一致
+        function checkAction(e, direction){
+            var type = direction,
+                //type = e.type.toLowerCase(),
+                typeRotateMap = {
+                    swipeleft: 'rotate2',
+                    swiperight: 'rotate0',
+                    swipeup: 'rotate1',
+                    swipedown: 'rotate3'
+                },
+                checkedEle = getElementByTarget(currentTarget);
+
+            if(checkedEle.find('span').eq(0).hasClass( typeRotateMap[type] ) ){
+                checkedEle.removeClass('current-target');
+                //todo:add break effect
+                if(needCheckTargets.length){
+                    highlightTarget( currentTarget=needCheckTargets.pop() );
+                }else{
+                    nextStep();
+                }
+            }else{
+                //show wrong tip
+                alert(0)
+            }
+        }
+
+        //根据当前级别获取待检测的目标集合(每个目标的坐标)
+        function getCheckTargets(step){
+            var ret = [],
+                sampleCount = 1,
+                rCount = initTable.rowCount,
+                cCount = initTable.columnCount,
+                total = rCount * cCount;
+
+            //当目标总数大于4的时候，抽样数增加总数的10%
+            if(total > 4){
+                sampleCount += Math.ceil(total * 0.001);
+            }
+
+            var pools = getRangeArray(total),
+                idx;
+
+            while(sampleCount--){
+                idx = parseInt(Math.random() * pools.length);
+                ret.push({
+                    r: parseInt(pools[idx] / cCount),
+                    c: parseInt(pools[idx] % cCount)
+                });
+                pools.slice(idx, 1);
+            }
+
+            return ret;
+        }
+
+        //初始化参数,横向切分数和纵向切分数
+        function init(h, v){
+            initStep = {
+                xLevel: h,//纵向切分
+                yLevel: v//横向切分
+            };
+
+            initTable = {
+                rowCount: h + 1,
+                columnCount: v + 1
+            };
+        }
+
+        //更新关卡的横向和纵向的切分数
+        function updateStep(){
+            initStep.xLevel++;
+            if(initStep.xLevel<4){
+                initStep.yLevel++;
+            }else{
+                initStep.yLevel = Math.round( initStep.xLevel / WHscale );
+            }
+
+            initTable.rowCount = initStep.xLevel + 1;
+            initTable.columnCount = initStep.yLevel + 1;
+        }
+
+
+        function start(){
+            init(1, 1);
+            bindSwipeEvent(containerId);
+            run();
+        }
+
+        //运行游戏
+        function run(){
+            $('#' + containerId).html(createScene(initStep) );
+            $('.loading').addClass('scene-fadein').show();
+            setTimeout(function(){
+                $('.loading').removeClass('scene-fadein').hide();
+            }, 1000);
+
+            needCheckTargets = getCheckTargets(initStep);
+
+            highlightTarget( currentTarget=needCheckTargets.pop() );
+        }
+
+        //开启下一关模式
+        function nextStep(){
+            //todo:check win
+            //document.documentElement.offsetHeight / (step.yLevel + 1)
+            updateStep();
+            run();
+        }
+
+        
+        //高亮当前的待检查目标元素
+        //target={r:0, c:2}，r-行数，c-列数
+        //容器内只有div，因此只需按照索引求出其在dom中的顺序即可锁定该元素
+        function highlightTarget(target){
+            getElementByTarget(target).addClass('current-target');
+        }
+
+        //给定一个长度获取从0开始的数组
+        function getRangeArray(max){
+            var ret = [];
+            while(max--){
+                ret.push(max);
+            }
+
+            return ret;
+        }
+
+        //根据目标元素的行列坐标(r,c)返回dom元素
+        function getElementByTarget(target){
+            var idx = target.r * initTable.columnCount //第几行
+                    + target.c; //第几列
+            return $('#' + containerId + ' div').eq(idx);
+        }
+
+
+        //滑动开始
+//        $('.goarea').on('swipeRight', function(){alert(11)
+//            $('.readme').addClass('readme-hide');
+//            start();
+//        });
+
+        $('.goarea').swipe({
+            swipeRight: function (event, direction){
+                $('.readme').addClass('readme-hide');
+                start();
+            }
+        });
+
+  //-->
+  </script>
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Faf591b76a546113c19c6b6bd1bfd33f6' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+ </body>
+</html>
