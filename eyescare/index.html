@@ -145,14 +145,14 @@
         //根据当前级别获取待检测的目标集合(每个目标的坐标)
         function getCheckTargets(step){
             var ret = [],
-                sampleCount = 1,
+                sampleCount = 4,
                 rCount = initTable.rowCount,
                 cCount = initTable.columnCount,
                 total = rCount * cCount;
 
             //当目标总数大于4的时候，抽样数增加总数的10%
             if(total > 4){
-                sampleCount += Math.ceil(total * 0.001);
+                sampleCount += Math.ceil(total * 0.1);
             }
 
             var pools = getRangeArray(total),
