@@ -131,6 +131,7 @@
             if(checkedEle.find('span').eq(0).hasClass( typeRotateMap[type] ) ){
                 checkedEle.removeClass('current-target');
                 //todo:add break effect
+
                 if(needCheckTargets.length){
                     highlightTarget( currentTarget=needCheckTargets.pop() );
                 }else{
@@ -162,9 +163,9 @@
                 idx = parseInt(Math.random() * pools.length);
                 ret.push({
                     r: parseInt(pools[idx] / cCount),
-                    c: parseInt(pools[idx] % cCount)
+                    c: parseInt(pools[idx] % rCount)
                 });
-                pools.slice(idx, 1);
+                pools.splice(idx, 1);
             }
 
             return ret;
