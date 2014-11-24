@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>eyes care - 免费视力检查</title>
+  <title>eyes care -趣味视力检查</title>
   <meta charset="UTF-8" />
   <meta name="author" content="todd.ma@qunar.com" />
   <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" name="viewport" />
   <meta name="keywords" content="视力，爱护眼睛，游戏" />
-  <meta name="description" content="表达视力的标准是人眼能辨认的最小字符对人眼的张角，正常人的眼睛视力约为1.0左右，通常所说的视力是指眼睛的最小可分视力而不是最小可见视力。" />
   <style type="text/css">
     *{margin:0;padding:0;box-sizing:border-box;}
     html, body, #canvas{width:100%;height:100%;overflow:hidden;}
@@ -21,7 +20,7 @@
     .current-target{background:#B9E0F4;border-radius:4px;}
     .readme{position:absolute;width:100%;height:100%;text-align:center;overflow:hidden;z-index:10;transform:translateZ(0)}
     .ebg{position:absolute;top:50%;left:50%;margin-top:-200px;margin-left:-100px;width:200px;opacity:.05;}
-    .copyright{position:absolute;bottom:10px;width:100%;font-family:tahoma;color:#aaa;text-align:center;}
+    .copyright{position:absolute;bottom:10px;width:100%;font-family:tahoma;color:#aaa;text-align:center;line-height:2;}
     .copyright a{text-decoration:none;color:#aaa;}
     .readme-cont{width:90%;height:350px;margin:20px auto 0;padding:12px;text-align:left;line-height:1.8;color:#333;border:1px solid #ccc;border-radius:4px;font-size:1rem;}
     .readme-cont h1{font-size:1.5rem;text-align:center;margin-bottom:15px;}
@@ -67,8 +66,11 @@
  </head>
 
  <body>
+ <div id='wx_pic' style='margin:0 auto;display:none;'>
+     <img src='test.jpg' />
+ </div>
   <div class="readme">
-    <img class="ebg" src="ebg.png" alt="第一张图片"/>
+    <img class="ebg" src="eebg.png"/>
     <div class="readme-cont">
         <h1>游戏须知</h1>
         <ol>
@@ -79,7 +81,7 @@
         </ol>
     </div>
     <p class="goarea"><img src="rhand.png" height="40"/></p>
-    <p class="copyright"><a target="_blank" href="http://touch.qunar.com">touch.qunar.com</a>&copy;2014<br><a target="_blank" href="mailto:83790235@qq.com">Q&A</a></p>
+    <p class="copyright"><a target="_blank" href="http://touch.qunar.com">touch.qunar.com</a>&copy;2014 <a target="_blank" href="mailto:83790235@qq.com">问题反馈</a></p>
   </div>
   <div class="loading"></div>
   <div class="barrier-tip"></div>
@@ -194,6 +196,9 @@
             if(total > 4){
                 sampleCount += Math.ceil(total * 0.1);
             }
+
+            //抽样数设定最大值30
+            sampleCount = sampleCount>20 ? 20 : sampleCount;
 
             var pools = getRangeArray(total),
                 idx;
@@ -329,5 +334,63 @@ var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " 
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Faf591b76a546113c19c6b6bd1bfd33f6' type='text/javascript'%3E%3C/script%3E"));
 </script>
 
+
+ <script>
+     var imgUrl = "http://guxima.github.io/eyescare/eebg.png";
+     var lineLink = "http://guxima.github.io/eyescare";
+     var descContent = '昨天没人找我玩儿，我只好写个游戏玩儿你们。不对，是让你们玩儿！';
+     var shareTitle = 'eyes care 爱护眼睛，发现更多美';
+     var appid = '';
+
+     function shareFriend() {
+         WeixinJSBridge.invoke('sendAppMessage',{
+             "appid": appid,
+             "img_url": imgUrl,
+             "img_width": "200",
+             "img_height": "200",
+             "link": lineLink,
+             "desc": descContent,
+             "title": shareTitle
+         }, function(res) {
+             //_report('send_msg', res.err_msg);
+         })
+     }
+     function shareTimeline() {
+         WeixinJSBridge.invoke('shareTimeline',{
+             "img_url": imgUrl,
+             "img_width": "200",
+             "img_height": "200",
+             "link": lineLink,
+             "desc": descContent,
+             "title": shareTitle
+         }, function(res) {
+             //_report('timeline', res.err_msg);
+         });
+     }
+     function shareWeibo() {
+         WeixinJSBridge.invoke('shareWeibo',{
+             "content": descContent,
+             "url": lineLink,
+         }, function(res) {
+             //_report('weibo', res.err_msg);
+         });
+     }
+     // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+         // 发送给好友
+         WeixinJSBridge.on('menu:share:appmessage', function(argv){
+             shareFriend();
+         });
+         // 分享到朋友圈
+         WeixinJSBridge.on('menu:share:timeline', function(argv){
+             shareTimeline();
+         });
+         // 分享到微博
+         WeixinJSBridge.on('menu:share:weibo', function(argv){
+             shareWeibo();
+         });
+     }, false);
+
+ </script>
  </body>
 </html>
