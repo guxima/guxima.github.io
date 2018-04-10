@@ -1,0 +1,353 @@
+.icon-no-font {
+  font: normal 0 Georgia, "Apple Symbols", serif;
+}
+.icon-no-font::before,
+.icon-no-font::after {
+  font-size: 32px;
+}
+.icon-no-font-times::after {
+  content: '\D7';
+}
+.icon-no-font-numero::after {
+  content: '\2116';
+}
+.icon-no-font-trade::after {
+  content: '\2122';
+}
+.icon-no-font-larr::after {
+  content: '\2190';
+}
+.icon-no-font-xlarr::after {
+  content: '\27F5';
+}
+.icon-no-font-uarr::after {
+  content: '\2191';
+}
+.icon-no-font-rarr::after {
+  content: '\2192';
+}
+.icon-no-font-xrarr::after {
+  content: '\27F6';
+}
+.icon-no-font-darr::after {
+  content: '\2193';
+}
+.icon-no-font-harr::after {
+  content: '\2194';
+}
+.icon-no-font-xharr::after {
+  content: '\27F7';
+}
+.icon-no-font-varr::after {
+  content: '\2195';
+}
+.icon-no-font-nwarr::after {
+  content: '\2196';
+}
+.icon-no-font-nearr::after {
+  content: '\2197';
+}
+.icon-no-font-searr::after {
+  content: '\2198';
+}
+.icon-no-font-swarr::after {
+  content: '\2199';
+}
+.icon-no-font-larrhk::after {
+  content: '\21A9';
+}
+.icon-no-font-rarrhk::after {
+  content: '\21AA';
+}
+.icon-no-font-crarr::after {
+  content: '\21B5';
+}
+.icon-no-font-cularr::after {
+  content: '\21B6';
+}
+.icon-no-font-curarr::after {
+  content: '\21B7';
+}
+.icon-no-font-cudarrr::after {
+  content: '\2935';
+}
+.icon-no-font-ldca::after {
+  content: '\2936';
+}
+.icon-no-font-rdca::after {
+  content: '\2937';
+}
+.icon-no-font-olarr::after {
+  content: '\21BA';
+}
+.icon-no-font-orarr::after {
+  content: '\21BB';
+}
+.icon-no-font-lharu::after {
+  content: '\21BC';
+}
+.icon-no-font-lhard::after {
+  content: '\21BD';
+}
+.icon-no-font-uharr::after {
+  content: '\21BE';
+}
+.icon-no-font-uharl::after {
+  content: '\21BF';
+}
+.icon-no-font-rharu::after {
+  content: '\21C0';
+}
+.icon-no-font-rhard::after {
+  content: '\21C1';
+}
+.icon-no-font-dharr::after {
+  content: '\21C2';
+}
+.icon-no-font-dharl::after {
+  content: '\21C3';
+}
+.icon-no-font-lurdshar::after {
+  content: '\294A';
+}
+.icon-no-font-ldrushar::after {
+  content: '\294B';
+}
+.icon-no-font-rlarr::after {
+  content: '\21C4';
+}
+.icon-no-font-udarr::after {
+  content: '\21C5';
+}
+.icon-no-font-lrarr::after {
+  content: '\21C6';
+}
+.icon-no-font-lrhar::after {
+  content: '\21CB';
+}
+.icon-no-font-rlhar::after {
+  content: '\21CC';
+}
+.icon-no-font-udhar::after {
+  content: '\296E';
+}
+.icon-no-font-duhar::after {
+  content: '\296F';
+}
+.icon-no-font-lArr::after {
+  content: '\21D0';
+}
+.icon-no-font-xlArr::after {
+  content: '\27F8';
+}
+.icon-no-font-uArr::after {
+  content: '\21D1';
+}
+.icon-no-font-rArr::after {
+  content: '\21D2';
+}
+.icon-no-font-xrArr::after {
+  content: '\27F9';
+}
+.icon-no-font-dArr::after {
+  content: '\21D3';
+}
+.icon-no-font-hArr::after {
+  content: '\21D4';
+}
+.icon-no-font-xhArr::after {
+  content: '\27FA';
+}
+.icon-no-font-vArr::after {
+  content: '\21D5';
+}
+.icon-no-font-nwArr::after {
+  content: '\21D6';
+}
+.icon-no-font-neArr::after {
+  content: '\21D7';
+}
+.icon-no-font-seArr::after {
+  content: '\21D8';
+}
+.icon-no-font-swArr::after {
+  content: '\21D9';
+}
+.icon-no-font-duarr::after {
+  content: '\21F5';
+}
+.icon-no-font-lang::after {
+  content: '\27E8';
+}
+.icon-no-font-rang::after {
+  content: '\27E9';
+}
+.icon-no-font-angrt::after {
+  content: '\221F';
+}
+.icon-no-font-hercon::after {
+  content: '\22B9';
+}
+.icon-no-font-wedge::after {
+  content: '\2227';
+}
+.icon-no-font-vee::after {
+  content: '\2228';
+}
+.icon-no-font-equiv::after {
+  content: '\2261';
+}
+.icon-no-font-oplus::after {
+  content: '\2295';
+}
+.icon-no-font-xoplus::after {
+  content: '\2A01';
+}
+.icon-no-font-ominus::after {
+  content: '\2296';
+}
+.icon-no-font-otimes::after {
+  content: '\2297';
+}
+.icon-no-font-xotime::after {
+  content: '\2A02';
+}
+.icon-no-font-Otimes::after {
+  content: '\2A37';
+}
+.icon-no-font-osol::after {
+  content: '\2298';
+}
+.icon-no-font-odot::after {
+  content: '\2299';
+}
+.icon-no-font-ocir::after {
+  content: '\229A';
+}
+.icon-no-font-olcir::after {
+  content: '\29BE';
+}
+.icon-no-font-ofcir::after {
+  content: '\29BF';
+}
+.icon-no-font-oast::after {
+  content: '\229B';
+}
+.icon-no-font-opar::after {
+  content: '\29B7';
+}
+.icon-no-font-olt::after {
+  content: '\29C0';
+}
+.icon-no-font-ogt::after {
+  content: '\29C1';
+}
+.icon-no-font-timesb::after {
+  content: '\22A0';
+}
+.icon-no-font-sdotb::after {
+  content: '\22A1';
+}
+.icon-no-font-vellip::after {
+  content: '\22EE';
+}
+.icon-no-font-ctdot::after {
+  content: '\22EF';
+}
+.icon-no-font-utdot::after {
+  content: '\22F0';
+}
+.icon-no-font-dtdot::after {
+  content: '\22F1';
+}
+.icon-no-font-telrec::after {
+  content: '\2315';
+}
+.icon-no-font-target::after {
+  content: '\2316';
+}
+.icon-no-font-cir::after {
+  content: '\25CB';
+}
+.icon-no-font-xcirc::after {
+  content: '\25EF';
+}
+.icon-no-font-starf::after {
+  content: '\2605';
+}
+.icon-no-font-star::after {
+  content: '\2606';
+}
+.icon-no-font-phone::after {
+  content: '\260E';
+}
+.icon-no-font-female::after {
+  content: '\2640';
+}
+.icon-no-font-male::after {
+  content: '\2642';
+}
+.icon-no-font-check::after {
+  content: '\2713';
+}
+.icon-no-font-radic::after {
+  content: '\221A';
+}
+.icon-no-font-cross::after {
+  content: '\2717';
+}
+.icon-no-font-back::after {
+  display: inline-block;
+  content: '\221F';
+  transform: rotateZ(45deg);
+  transform-origin: 50% 60%;
+}
+.icon-no-font-goto::after {
+  display: inline-block;
+  content: '\221F';
+  transform: rotateZ(-135deg);
+  transform-origin: 50% 58%;
+}
+.icon-no-font-slideup::after {
+  display: inline-block;
+  vertical-align: top;
+  content: '\221F';
+  transform: rotateZ(135deg);
+}
+.icon-no-font-slidedown::after {
+  display: inline-block;
+  content: '\221F';
+  transform: rotateZ(-45deg);
+}
+.icon-no-font-lbs {
+  position: relative;
+  text-align: center;
+}
+.icon-no-font-lbs::before {
+  content: '\25CB';
+}
+.icon-no-font-lbs::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  content: '\22B9';
+}
+.icon-no-font-search::after {
+  display: inline-block;
+  content: '\2315';
+  transform: rotateZ(-90deg);
+}
+.icon-no-font-notice {
+  position: relative;
+  text-align: center;
+}
+.icon-no-font-notice::before {
+  content: '\25CB';
+}
+.icon-no-font-notice::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  content: '!';
+  transform: scale(0.5);
+}
